@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: agrocd-app
+  namespace: argocd  # Ensure this matches the namespace where Argo CD is installed
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gopalmahera/agrocd.git
+    targetRevision: HEAD
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
