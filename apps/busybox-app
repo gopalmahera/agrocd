@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: busybox-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/gopalmahera/agrocd.git
+    targetRevision: HEAD
+    path: busybox
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
